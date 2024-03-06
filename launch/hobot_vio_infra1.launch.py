@@ -10,15 +10,18 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 from ament_index_python import get_package_share_directory
 from ament_index_python.packages import get_package_prefix
 
-
 def generate_launch_description():
+    config_file_path = os.path.join(
+        get_package_prefix('hobot_vio'),
+        "lib/hobot_vio/config/realsenseD435i.yaml")
+    print("config_file_path is ", config_file_path)
 
     horizon_vio_node = Node(
         package='hobot_vio',
         executable='hobot_vio',
         output='screen',
         parameters=[
-            {"path_config": "/opt/tros/lib/hobot_vio/config/realsenseD435i.yaml"},
+            {"path_config": str(config_file_path)},
             {"image_topic": "/camera/infra1/image_rect_raw"},
             {"imu_topic": "/camera/imu"},
             {"sample_gap": 2}
