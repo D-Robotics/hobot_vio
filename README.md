@@ -73,7 +73,7 @@ rviz2的话题订阅如下图所示，详细的话题解释在“接口说明”
 ## 输入topic
 | 参数名 | 类型 | 解释  | 是否必须 | 默认值 |
 | ----- | ----| -----| ------- | -----|
-| path_config  | std::string | vio算法配置文件路径 | 是        | /opt/tros/lib/hobot_vio/config/realsenseD435i.yaml |
+| path_config  | std::string | vio算法配置文件路径 | 是        | /opt/tros/${tros_distro}/lib/hobot_vio/config/realsenseD435i.yaml |
 | image_topic  | std::string | vio算法订阅的图像数据话题名  | 是 | /camera/infra1/image_rect_raw |
 | imu_topic    | std::string | vio算法订阅的IMU数据话题名  | 是 | /camera/imu  |
 | sample_gap  | std::string | vio算法处理频率，1表示每帧图像都会参与轨迹计算，2表示每两帧图像计算一次，依此类推 | 是  | 2 |

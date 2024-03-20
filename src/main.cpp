@@ -209,7 +209,10 @@ int main(int argc, char **argv) {
   std::shared_ptr<Ros2SubNode> ros2SubNode;
 
   //  Step 1. Loading config file
-  std::string path_config = "/opt/tros/lib/hobot_vio/config/realsenseD435i.yaml";
+  std::string tros_distro
+      = std::string(std::getenv("TROS_DISTRO")? std::getenv("TROS_DISTRO") : "");
+  std::string path_config = "/opt/tros/" + tros_distro +
+    "/lib/hobot_vio/config/realsenseD435i.yaml";
 
   ROS2Visualizer::GetInstance()->declare_parameter("path_config", path_config);
   ROS2Visualizer::GetInstance()->get_parameter("path_config", path_config);
