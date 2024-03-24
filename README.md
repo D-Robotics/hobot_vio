@@ -1,118 +1,118 @@
-# 功能介绍
+English| [简体中文](./README_cn.md)
 
-视觉惯性里程计（Visual Inertial Odometry，VIO）是融合相机与惯性测量单元（Inertial Measurement Unit，IMU）数据实现机器人定位的算法。VIO定位算法具有成本低、适用环境广等优点，在室外环境下能够有效弥补卫星定位中遮挡、多路径干扰等失效场景。优秀、鲁棒的VIO算法是实现室外高精度导航定位的关键。
+# Function Introduction
 
+Visual Inertial Odometry (VIO) is an algorithm that integrates camera and Inertial Measurement Unit (IMU) data to achieve robot localization. The VIO positioning algorithm has the advantages of low cost and wide applicability, and can effectively compensate for failure scenarios such as occlusion and multipath interference in satellite positioning in outdoor environments. An excellent and robust VIO algorithm is key to achieving high-precision outdoor navigation positioning.
 
-代码仓库：<https://github.com/HorizonRDK/hobot_vio.git>
+Code Repository: <https://github.com/HorizonRDK/hobot_vio.git>
 
-# 物料清单
+# Bill of Materials
 
-| 机器人名称          | 生产厂家 | 参考链接                                                     |
-| :------------------ | -------- | ------------------------------------------------------------ |
-| RDK X3             | 具体见参考链接 | [点击跳转](https://developer.horizon.cc/sunrise) |
-| realsense          | Intel RealSense D435i |             |
+| Robot Name         | Manufacturer | Reference Link                                               |
+| :----------------- | ------------ | ------------------------------------------------------------ |
+| RDK X3             | See reference link | [Click to jump](https://developer.horizon.cc/sunrise)      |
+| Realsense          | Intel RealSense D435i |             |
 
-# 使用方法
+# User Instructions
 
-## 准备工作
+## Preparation
 
-在体验之前，需要具备以下基本条件：
+Before experiencing, the following basic conditions need to be met:
 
-- 地平线RDK已烧录好地平线提供的Ubuntu 20.04系统镜像
-- 地平线RDK已安装
-- realsense连接到RDK X3 USB 3.0接口
+- The Horizon RDK has been burned with the Ubuntu 20.04 system image provided by Horizon.
+- The Horizon RDK has been installed.
+- Realsense is connected to the RDK X3 via USB 3.0 interface.
 
-算法订阅realsense相机的图像和IMU数据作为算法的输入，经过计算得到相机的轨迹信息，
-并通过ROS2的话题机制发布相机的运动轨迹，轨迹结果可在PC的rviz2软件查看。
+The algorithm subscribes to the image and IMU data of the Realsense camera as input, calculates the camera's trajectory information, and publishes the camera’s motion trajectory through the topic mechanism of ROS2. The trajectory results can be viewed in the rviz2 software on a PC.
 
 ![vio_rviz](./imgs/hobot_vio_rviz.jpeg)
-## 硬件连接
-Realsense与RDK X3连接方式如下图：
+## Hardware Connection
+The connection method between Realsense and RDK X3 is as shown in the following picture:
  ![realsense-x3](./imgs/realsense-x3.jpg)
  
-**1.安装功能包**
+**1. Install Package**
 
-启动机器人后，通过终端或者VNC连接机器人，复制如下命令在RDK的系统上运行，完成相关Node的安装。
+After starting the robot, connect to the robot through the terminal or VNC, copy and run the following command on the RDK system to complete the installation of the related Node.
 
 ```bash
 sudo apt update
 sudo apt install -y tros-hobot-vio
 ```
  
-**2.运行VIO功能**
+**2. Run VIO Feature**
 
-启动命令，launch文件内包含启动realsense相机和vio算法模块的命令，所以只用运行一个launch文件即可：
+To start the command, the launch file contains the commands for starting the Realsense camera and VIO algorithm module, so only one launch file needs to be run:
 
 ```shell
-# 配置tros.b环境
+# Configure the tros.b environment
 source /opt/ros/foxy/setup.bash
 source /opt/tros/local_setup.bash
 
-ros2 launch hobot_vio hobot_vio.launch.py 
+```ros2 launch hobot_vio hobot_vio.launch.py 
 ```
 
-程序运行后，会进入等待初始化状态，此时必须相机必须保持静止。
+Upon program execution, it will enter a waiting initialization state, during which the camera must remain stationary.
  ![init](./imgs/init.png)
-此时相机向前平移一段距离，此时算法检测到相机平移则会完成初始化，
-此时相机持续运动，开始视觉与惯性的融合定位过程。
+At this point, when the camera is translated forward by a certain distance, the algorithm will detect the translation and complete the initialization. Subsequently, the camera continues to move, initiating the visual-inertial fusion localization process.
  ![run](./imgs/run.png)
 
-**3.查看效果**
-这里采用rivz2的方式观察VIO算法的效果，需要在PC上安装ROS2。并且保证PC与RDK X3处于同一网段。
-rviz2的话题订阅如下图所示，详细的话题解释在“接口说明”一节：
+**3. Viewing the Results**
+To observe the effect of the VIO algorithm, use rviz2, which requires ROS2 to be installed on a PC. Ensure that the PC and RDK X3 are on the same network segment.
+The subscription topics in rviz2 are configured as shown below, with detailed explanations provided in the "Interface Explanation" section:
  ![rviz_set](./imgs/rviz_set.jpg)
 
- 展示效果如下动图所示
+ The visualization results are shown in the animated image below:
 ![rviz_run](./imgs/out.gif)
 
-# 接口说明
+# Interface Explanation
 
  ![module](./imgs/module.png)
 
 
-## 输入topic
-| 参数名 | 类型 | 解释  | 是否必须 | 默认值 |
+## Input Topics
+| Parameter Name | Type | Description | Mandatory | Default Value |
 | ----- | ----| -----| ------- | -----|
-| path_config  | std::string | vio算法配置文件路径 | 是        | /opt/tros/${tros_distro}/lib/hobot_vio/config/realsenseD435i.yaml |
-| image_topic  | std::string | vio算法订阅的图像数据话题名  | 是 | /camera/infra1/image_rect_raw |
-| imu_topic    | std::string | vio算法订阅的IMU数据话题名  | 是 | /camera/imu  |
-| sample_gap  | std::string | vio算法处理频率，1表示每帧图像都会参与轨迹计算，2表示每两帧图像计算一次，依此类推 | 是  | 2 |
+| path_config  | std::string | Path to the VIO algorithm configuration file | Yes | /opt/tros/${tros_distro}/lib/hobot_vio/config/realsenseD435i.yaml |
+| image_topic  | std::string | Name of the topic where VIO algorithm subscribes for image data  | Yes | /camera/infra1/image_rect_raw |
+| imu_topic    | std::string | Name of the topic where VIO algorithm subscribes for IMU data  | Yes | /camera/imu  |
+| sample_gap  | std::string | Processing frequency of the VIO algorithm, where 1 implies trajectory calculation for every frame, 2 implies calculation every two frames, and so on | Yes  | 2 |
 
-## 输出topic
+## Output Topic
 
-| topic名 | 类型 | 解释  |
+| Topic Name | Type | Description |
 | ----- | ----| -----| 
-| horizon_vio/horizon_vio_path  | nav_msgs::msg::Path | vio算法输出的机器人运动轨迹  |
+| horizon_vio/horizon_vio_path  | nav_msgs::msg::Path | Robot's motion trajectory output by the VIO algorithm  |
 
 
-# 常见问题
-1、Ubuntu下运行启动命令报错-bash: ros2: command not found
-当前终端未设置ROS2环境，执行命令配置环境：
+# FAQs
+1. Running the launch command on Ubuntu results in an error: -bash: ros2: command not found
+   This occurs when the terminal environment is not configured for ROS2. Execute the following command to set up the environment:
 ```
 source /opt/tros/local_setup.bash
 ```
-2、如何在RDK上安装realsense的ROS2 package
+2. How to install the realsense ROS2 package on RDK
 ```
-# 以ROS2 Foxy版本为例
+# Example using ROS2 Foxy version
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE 
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE
 sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(source /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+``````
 sudo apt-get install software-properties-common
 sudo add-apt-repository "deb https://librealsense.intel.com/Debian/apt-repo $(lsb_release -cs) main" -u
 sudo apt-get update
 sudo apt-get install ros-foxy-librealsense2* ros-foxy-realsense2-camera ros-foxy-realsense2-description -y
 ```
-3、如何保存VIO算法的轨迹
-程序启动之后会自动实时保存轨迹到文件，文件名为 trans_quat_camera_xx.txt。文件内容如下：
+3. How to save the trajectory of VIO algorithm
+After the program starts, it will automatically save the trajectory in real time to a file named trans_quat_camera_xx.txt. The content of the file is as follows:
 ```
 1688615183.065757036 -0.081376 -0.040180 0.030833 -0.501420 -0.461689 0.520512 0.514285
 ......
 ```
-数据列分别为时间戳、x、y、z坐标、四元数w、x、y、z。
+The columns of data represent timestamp, x, y, z coordinates, quaternion w, x, y, z.
 
-4、VIO注意事项：
+4. VIO Notes:
 
-a. 单目VIO运行前需要进行初始化，具体见“2.运行VIO功能”这一节。
+a. Monocular VIO requires initialization before running, please refer to section "2. Run VIO Function" for details.
 
-b. 移动相机过程中尽量平缓。
+b. Try to move the camera smoothly during operation.
