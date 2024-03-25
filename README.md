@@ -48,7 +48,7 @@ To start the command, the launch file contains the commands for starting the Rea
 source /opt/ros/foxy/setup.bash
 source /opt/tros/local_setup.bash
 
-```ros2 launch hobot_vio hobot_vio.launch.py 
+ros2 launch hobot_vio hobot_vio.launch.py 
 ```
 
 Upon program execution, it will enter a waiting initialization state, during which the camera must remain stationary.
@@ -59,6 +59,7 @@ At this point, when the camera is translated forward by a certain distance, the 
 **3. Viewing the Results**
 To observe the effect of the VIO algorithm, use rviz2, which requires ROS2 to be installed on a PC. Ensure that the PC and RDK X3 are on the same network segment.
 The subscription topics in rviz2 are configured as shown below, with detailed explanations provided in the "Interface Explanation" section:
+
  ![rviz_set](./imgs/rviz_set.jpg)
 
  The visualization results are shown in the animated image below:
@@ -97,7 +98,6 @@ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key F6E65AC044F831AC80A
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE
 sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(source /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
-``````
 sudo apt-get install software-properties-common
 sudo add-apt-repository "deb https://librealsense.intel.com/Debian/apt-repo $(lsb_release -cs) main" -u
 sudo apt-get update
