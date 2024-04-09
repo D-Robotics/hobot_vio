@@ -2,7 +2,7 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>hobot_vio</name>
-  <version>2.0.2</version>
+  <version>2.1.0</version>
   <description>TogetheROS hobot_vio node</description>
   <maintainer email="huaiyu.zhang@horizon.cc">huaiyu.zhang</maintainer>
   <license>Apache License 2.0</license>
