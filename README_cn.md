@@ -36,19 +36,36 @@ Realsense与RDK X3连接方式如下图：
 
 启动机器人后，通过终端或者VNC连接机器人，复制如下命令在RDK的系统上运行，完成相关Node的安装。
 
+tros foxy 版本
 ```bash
 sudo apt update
 sudo apt install -y tros-hobot-vio
 ```
+
+tros humble 版本
+```bash
+sudo apt update
+sudo apt install -y tros-humble-hobot-vio
+```
+
  
 **2.运行VIO功能**
 
 启动命令，launch文件内包含启动realsense相机和vio算法模块的命令，所以只用运行一个launch文件即可：
 
+tros foxy 版本
 ```shell
 # 配置tros.b环境
 source /opt/ros/foxy/setup.bash
 source /opt/tros/local_setup.bash
+
+ros2 launch hobot_vio hobot_vio.launch.py 
+```
+
+tros humb 版本
+```shell
+# 配置tros.b humble环境
+source /opt/tros/humble/local_setup.bash
 
 ros2 launch hobot_vio hobot_vio.launch.py 
 ```
@@ -90,10 +107,19 @@ rviz2的话题订阅如下图所示，详细的话题解释在“接口说明”
 # 常见问题
 1、Ubuntu下运行启动命令报错-bash: ros2: command not found
 当前终端未设置ROS2环境，执行命令配置环境：
+
+tros foxy 版本
 ```
 source /opt/tros/local_setup.bash
 ```
+tros humble 版本
+```
+source /opt/tros/humble/local_setup.bash
+```
+
 2、如何在RDK上安装realsense的ROS2 package
+
+tros foxy 版本
 ```
 # 以ROS2 Foxy版本为例
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE 
@@ -105,6 +131,20 @@ sudo add-apt-repository "deb https://librealsense.intel.com/Debian/apt-repo $(ls
 sudo apt-get update
 sudo apt-get install ros-foxy-librealsense2* ros-foxy-realsense2-camera ros-foxy-realsense2-description -y
 ```
+
+tros humble 版本
+```
+# 以ROS2 Humble版本为例
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE 
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE
+sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(source /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+sudo apt-get install software-properties-common
+sudo add-apt-repository "deb https://librealsense.intel.com/Debian/apt-repo $(lsb_release -cs) main" -u
+sudo apt-get update
+sudo apt-get install ros-humble-librealsense2* ros-humble-realsense2-camera ros-humble-realsense2-description -y
+```
+
 3、如何保存VIO算法的轨迹
 程序启动之后会自动实时保存轨迹到文件，文件名为 trans_quat_camera_xx.txt。文件内容如下：
 ```
