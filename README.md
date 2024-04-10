@@ -34,19 +34,35 @@ The connection method between Realsense and RDK X3 is as shown in the following 
 
 After starting the robot, connect to the robot through the terminal or VNC, copy and run the following command on the RDK system to complete the installation of the related Node.
 
+tros foxy:
 ```bash
 sudo apt update
 sudo apt install -y tros-hobot-vio
+```
+
+tros humble:
+```bash
+sudo apt update
+sudo apt install -y tros-humble-hobot-vio
 ```
  
 **2. Run VIO Feature**
 
 To start the command, the launch file contains the commands for starting the Realsense camera and VIO algorithm module, so only one launch file needs to be run:
 
+tros foxy:
 ```shell
 # Configure the tros.b environment
 source /opt/ros/foxy/setup.bash
 source /opt/tros/local_setup.bash
+
+ros2 launch hobot_vio hobot_vio.launch.py 
+```
+
+tros humble:
+```shell
+# Configure the tros.b humble environment
+source /opt/tros/humble/local_setup.bash
 
 ros2 launch hobot_vio hobot_vio.launch.py 
 ```
@@ -88,10 +104,20 @@ The subscription topics in rviz2 are configured as shown below, with detailed ex
 # FAQs
 1. Running the launch command on Ubuntu results in an error: -bash: ros2: command not found
    This occurs when the terminal environment is not configured for ROS2. Execute the following command to set up the environment:
+
+tros foxy:
 ```
 source /opt/tros/local_setup.bash
 ```
+
+tros humble:
+```
+source /opt/tros/humble/local_setup.bash
+```
+
 2. How to install the realsense ROS2 package on RDK
+
+tros foxy:
 ```
 # Example using ROS2 Foxy version
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE 
@@ -103,6 +129,20 @@ sudo add-apt-repository "deb https://librealsense.intel.com/Debian/apt-repo $(ls
 sudo apt-get update
 sudo apt-get install ros-foxy-librealsense2* ros-foxy-realsense2-camera ros-foxy-realsense2-description -y
 ```
+
+tros humble:
+```
+# Example using ROS2 Humble version
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE 
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F6E65AC044F831AC80A06380C8B3A55A6F3EFCDE
+sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(source /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+sudo apt-get install software-properties-common
+sudo add-apt-repository "deb https://librealsense.intel.com/Debian/apt-repo $(lsb_release -cs) main" -u
+sudo apt-get update
+sudo apt-get install ros-humble-librealsense2* ros-humble-realsense2-camera ros-humble-realsense2-description -y
+```
+
 3. How to save the trajectory of VIO algorithm
 After the program starts, it will automatically save the trajectory in real time to a file named trans_quat_camera_xx.txt. The content of the file is as follows:
 ```
