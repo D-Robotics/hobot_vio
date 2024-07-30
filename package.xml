@@ -4,7 +4,7 @@
   <name>hobot_vio</name>
   <version>2.1.0</version>
   <description>TogetheROS hobot_vio node</description>
-  <maintainer email="huaiyu.zhang@horizon.cc">huaiyu.zhang</maintainer>
+  <maintainer email="huaiyu.zhang@d-robotics.cc">huaiyu.zhang</maintainer>
   <license>Apache License 2.0</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>

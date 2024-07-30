@@ -4,13 +4,13 @@ English| [简体中文](./README_cn.md)
 
 Visual Inertial Odometry (VIO) is an algorithm that integrates camera and Inertial Measurement Unit (IMU) data to achieve robot localization. The VIO positioning algorithm has the advantages of low cost and wide applicability, and can effectively compensate for failure scenarios such as occlusion and multipath interference in satellite positioning in outdoor environments. An excellent and robust VIO algorithm is key to achieving high-precision outdoor navigation positioning.
 
-Code Repository: <https://github.com/HorizonRDK/hobot_vio.git>
+Code Repository: <https://github.com/D-Robotics/hobot_vio.git>
 
 # Bill of Materials
 
 | Robot Name         | Manufacturer | Reference Link                                               |
 | :----------------- | ------------ | ------------------------------------------------------------ |
-| RDK X3             | See reference link | [Click to jump](https://developer.horizon.cc/sunrise)      |
+| RDK X3             | See reference link | [Click to jump](https://developer.d-robotics.cc/rdkx3)      |
 | Realsense          | Intel RealSense D435i |             |
 
 # User Instructions
@@ -19,8 +19,8 @@ Code Repository: <https://github.com/HorizonRDK/hobot_vio.git>
 
 Before experiencing, the following basic conditions need to be met:
 
-- The Horizon RDK has been burned with the Ubuntu 20.04 system image provided by Horizon.
-- The Horizon RDK has been installed.
+- The RDK has been burned with the Ubuntu 20.04.
+- The RDK has been installed.
 - Realsense is connected to the RDK X3 via USB 3.0 interface.
 
 The algorithm subscribes to the image and IMU data of the Realsense camera as input, calculates the camera's trajectory information, and publishes the camera’s motion trajectory through the topic mechanism of ROS2. The trajectory results can be viewed in the rviz2 software on a PC.
