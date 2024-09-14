@@ -19,15 +19,15 @@ Code Repository: <https://github.com/D-Robotics/hobot_vio.git>
 
 Before experiencing, the following basic conditions need to be met:
 
-- The RDK has been burned with the Ubuntu 20.04.
+- The RDK has been burned with the Ubuntu.
 - The RDK has been installed.
-- Realsense is connected to the RDK X3 via USB 3.0 interface.
+- Realsense is connected to the RDK via USB 3.0 interface.
 
 The algorithm subscribes to the image and IMU data of the Realsense camera as input, calculates the camera's trajectory information, and publishes the camera’s motion trajectory through the topic mechanism of ROS2. The trajectory results can be viewed in the rviz2 software on a PC.
 
 ![vio_rviz](./imgs/hobot_vio_rviz.jpeg)
 ## Hardware Connection
-The connection method between Realsense and RDK X3 is as shown in the following picture:
+The connection method between Realsense and RDK is as shown in the following picture:
  ![realsense-x3](./imgs/realsense-x3.jpg)
  
 **1. Install Package**
@@ -73,7 +73,7 @@ At this point, when the camera is translated forward by a certain distance, the 
  ![run](./imgs/run.png)
 
 **3. Viewing the Results**
-To observe the effect of the VIO algorithm, use rviz2, which requires ROS2 to be installed on a PC. Ensure that the PC and RDK X3 are on the same network segment.
+To observe the effect of the VIO algorithm, use rviz2, which requires ROS2 to be installed on a PC. Ensure that the PC and RDK are on the same network segment.
 The subscription topics in rviz2 are configured as shown below, with detailed explanations provided in the "Interface Explanation" section:
 
  ![rviz_set](./imgs/rviz_set.jpg)

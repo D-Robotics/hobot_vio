@@ -20,16 +20,16 @@
 
 在体验之前，需要具备以下基本条件：
 
-- RDK已烧录好Ubuntu 20.04系统镜像
+- RDK已烧录好Ubuntu系统镜像
 - RDK已安装
-- realsense连接到RDK X3 USB 3.0接口
+- realsense连接到RDK USB 3.0接口
 
 算法订阅realsense相机的图像和IMU数据作为算法的输入，经过计算得到相机的轨迹信息，
 并通过ROS2的话题机制发布相机的运动轨迹，轨迹结果可在PC的rviz2软件查看。
 
 ![vio_rviz](./imgs/hobot_vio_rviz.jpeg)
 ## 硬件连接
-Realsense与RDK X3连接方式如下图：
+Realsense与RDK连接方式如下图：
  ![realsense-x3](./imgs/realsense-x3.jpg)
  
 **1.安装功能包**
@@ -77,7 +77,7 @@ ros2 launch hobot_vio hobot_vio.launch.py
  ![run](./imgs/run.png)
 
 **3.查看效果**
-这里采用rivz2的方式观察VIO算法的效果，需要在PC上安装ROS2。并且保证PC与RDK X3处于同一网段。
+这里采用rivz2的方式观察VIO算法的效果，需要在PC上安装ROS2。并且保证PC与RDK处于同一网段。
 rviz2的话题订阅如下图所示，详细的话题解释在“接口说明”一节：
  ![rviz_set](./imgs/rviz_set.jpg)
 
