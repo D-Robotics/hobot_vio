@@ -1,5 +1,9 @@
 # Changelog for package horizon_vio
 
+tros_2.1.1 (2024-11-19)
+------------------
+1. 依赖的OpenCV版本从3.4.5升级到4.X。
+
 tros_2.1.0 (2024-04-09)
 ------------------
 1. 适配ros2 humble零拷贝。
