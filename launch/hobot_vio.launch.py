@@ -23,11 +23,11 @@ def generate_launch_description():
         output='screen',
         parameters=[
             {"path_config": str(config_file_path)},
-            {"image_topic": "/camera/color/image_raw"},
-            {"imu_topic": "/camera/imu"},
+            {"image_topic": "/camera/camera/color/image_raw"},
+            {"imu_topic": "/camera/camera/imu"},
             {"sample_gap": 2}
         ],
-        arguments=['--ros-args', '--log-level', 'warn']
+        arguments=['--ros-args', '--log-level', 'info']
     )
 
     realsense_node = ExecuteProcess(

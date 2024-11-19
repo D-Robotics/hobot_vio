@@ -1,5 +1,5 @@
 %YAML:1.0
-chisquare_file: /opt/tros/lib/hobot_vio/config/chisquare_check.txt
+chisquare_file: /opt/tros/humble/lib/hobot_vio/config/chisquare_check.txt
 downsample: 1
 num_pts: 250
 gravity: !!opencv-matrix
@@ -11,7 +11,21 @@ gyroscope_noise_density: 0.00182936867769
 gyroscope_random_walk: 2.84378581073e-05
 accelerometer_noise_density: 0.011496108364
 accelerometer_random_walk: 0.00027
-init_imu_thresh: 0.4
+init_window_time: 0.75
+init_imu_thresh: 0.2
+init_max_disparity: -1
+wait_for_jerk: 0
+
+# downsample
+downsample: 1
+down_in_track: 0
+# zero velocity update params
+use_zupt: 1
+zupt_chi2_multipler: 0.5
+zupt_max_velocity: 0.05
+zupt_noise_multiplier: 10
+zupt_max_disparity: -1
+zupt_static_window_time: 0.65
 fast_threshold: 15
 # camera intrinsics
 cam_width: 640

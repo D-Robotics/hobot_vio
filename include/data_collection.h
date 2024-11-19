@@ -58,8 +58,12 @@ public:
     RCLCPP_INFO_STREAM(
             this->get_logger(), "imu_que_limit: " << imu_queue_limit_);
 
+
+    auto qos = rclcpp::QoS(1000);
+    qos.reliability(RMW_QOS_POLICY_RELIABILITY_BEST_EFFORT); // 或者 RMW_QOS_POLICY_RELIABILITY_RELIABLE
+
     sub_imu_ = this->create_subscription<sensor_msgs::msg::Imu>(
-            sub_imu_topic_, 1000,
+            sub_imu_topic_, qos,
             std::bind(&Ros2SubNode::CollectImu, this, std::placeholders::_1));
     sub_img_ = this->create_subscription<sensor_msgs::msg::Image>(
             sub_image_topic_, 30,
