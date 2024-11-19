@@ -95,6 +95,7 @@ add_executable(${PROJECT_NAME}
 target_link_libraries(${PROJECT_NAME}
         ${OpenCV_LIBRARIES}
         horizon_vio
+        horizon_vio_contrib_aarch64
         pthread
         dl)
 
