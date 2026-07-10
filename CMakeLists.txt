@@ -79,6 +79,10 @@ endif()
 message("PREFIX_PATH is " ${PREFIX_PATH})
 message("SYS_ROOT is " ${SYS_ROOT})
 
+if("${PREFERRED_ROS_DISTRO}" STREQUAL "jazzy")
+    add_definitions(-DCV_BRIDGE_CPP)
+endif()
+
 include_directories(include
         ${EIGEN3_INCLUDE_DIR}
         ${OpenCV_INCLUDE_DIRS}

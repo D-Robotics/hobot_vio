@@ -21,7 +21,11 @@
 #include <sensor_msgs/msg/imu.hpp>
 #include <sensor_msgs/msg/compressed_image.hpp>
 #include <opencv2/opencv.hpp>
-#include <cv_bridge/cv_bridge.h>
+#ifdef CV_BRIDGE_CPP
+#include <cv_bridge/cv_bridge.hpp>
+#else
+#include <cv_bridge/cv_bridge.hpp>
+#endif
 
 
 class Ros2SubNode : public rclcpp::Node {

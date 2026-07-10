@@ -14,15 +14,21 @@
 
 #include <fstream>
 #include <rclcpp/rclcpp.hpp>
-#include <cv_bridge/cv_bridge.h>
 #include <sensor_msgs/msg/image.hpp>
 #include <tf2_ros/transform_broadcaster.h>
 #include <tf2/LinearMath/Transform.h>
 #include <nav_msgs/msg/path.hpp>
-#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 #include <strstream>
 #include <ctime>
 #include <iomanip>
+
+#ifdef CV_BRIDGE_CPP
+#include <cv_bridge/cv_bridge.hpp>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
+#else
+#include <cv_bridge/cv_bridge.hpp>
+#include <tf2_geometry_msgs/tf2_geometry_msgs.h>
+#endif
 
 #include <Eigen/Core>
 #include <Eigen/Geometry>
